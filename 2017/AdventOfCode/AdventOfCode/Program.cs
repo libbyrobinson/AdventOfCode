@@ -17,7 +17,7 @@ namespace AdventOfCode
             Console.WriteLine($"Day 2. Part 1: {day2Part1Result}. Part 2: {day2Part2Result}.");
 
             var day3 = new Day3_SpiralMemory();
-            var day3Part1Result = day3.CalculateSteps_Part1();
+            var day3Part1Result = day3.CalculateSteps_Part1_Brute();
             var day3Part2Result = day3.CalculateSteps_Part2();
             Console.WriteLine($"Day 3. Part 1: {day3Part1Result}. Part 2: {day3Part2Result}.");
 

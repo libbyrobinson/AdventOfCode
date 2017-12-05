@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace AdventOfCode
 {
     public class Day3_SpiralMemory
     {
-        public int CalculateSteps_Part1()
+        public int CalculateSteps_Part1_Clever()
         {
             var targetInput = 347991;
 
@@ -42,78 +43,34 @@ namespace AdventOfCode
             return fullSequence[squareSize * squareSize - targetInput];
         }
 
+        public int CalculateSteps_Part1_Brute()
+        {
+            var input = 347991;
+
+            var spiralMatrix = new Matrix();
+
+            var currentCoordinate = spiralMatrix.AddNext();
+            while (currentCoordinate.Value != input)
+            {
+                currentCoordinate = spiralMatrix.AddNext();
+            }
+
+            return currentCoordinate.GetStepsToMiddle();
+        }
+
         public int CalculateSteps_Part2()
         {
             var input = 347991;
 
-            var spiralMatrix = new List<MatrixCoordinate>
+            var spiralMatrix = new Matrix();
+
+            var currentCoordinate = spiralMatrix.AddNext();
+            while (currentCoordinate.SurroundingSum <= input)
             {
-                new MatrixCoordinate
-                {
-                    X = 0,
-                    Y = 0,
-                    SurroundingSum = 1
-                }
-            };
-            
-            var currentSize = 1;
-            while (true)
-            {
-                AddToMatrix(spiralMatrix, "right", currentSize);
-                AddToMatrix(spiralMatrix, "up", currentSize);
-
-                currentSize++;
-
-                AddToMatrix(spiralMatrix, "left", currentSize);
-                AddToMatrix(spiralMatrix, "down", currentSize);
-
-                currentSize++;
-
-                var bigger = spiralMatrix.FirstOrDefault(s => s.SurroundingSum > input);
-                if (bigger != null)
-                    return bigger.SurroundingSum;
+                currentCoordinate = spiralMatrix.AddNext();
             }
-        }
 
-        private int GetSurroundingSumOfCoordinate(IReadOnlyCollection<MatrixCoordinate> spiralMatrix, MatrixCoordinate coordinate)
-        {
-            var sum = 0;
-
-            var top = spiralMatrix.SingleOrDefault(x => x.X == coordinate.X && x.Y == coordinate.Y + 1);
-            if (top != null) sum += top.SurroundingSum;
-
-            var topRight = spiralMatrix.SingleOrDefault(x => x.X == coordinate.X + 1 && x.Y == coordinate.Y + 1);
-            if (topRight != null) sum += topRight.SurroundingSum;
-
-            var right = spiralMatrix.SingleOrDefault(x => x.X == coordinate.X + 1 && x.Y == coordinate.Y);
-            if (right != null) sum += right.SurroundingSum;
-
-            var bottomRight = spiralMatrix.SingleOrDefault(x => x.X == coordinate.X + 1 && x.Y == coordinate.Y - 1);
-            if (bottomRight != null) sum += bottomRight.SurroundingSum;
-
-            var bottom = spiralMatrix.SingleOrDefault(x => x.X == coordinate.X && x.Y == coordinate.Y - 1);
-            if (bottom != null) sum += bottom.SurroundingSum;
-
-            var bottomLeft = spiralMatrix.SingleOrDefault(x => x.X == coordinate.X - 1 && x.Y == coordinate.Y - 1);
-            if (bottomLeft != null) sum += bottomLeft.SurroundingSum;
-
-            var left = spiralMatrix.SingleOrDefault(x => x.X == coordinate.X - 1 && x.Y == coordinate.Y);
-            if (left != null) sum += left.SurroundingSum;
-
-            var topLeft = spiralMatrix.SingleOrDefault(x => x.X == coordinate.X - 1 && x.Y == coordinate.Y + 1);
-            if (topLeft != null) sum += topLeft.SurroundingSum;
-
-            return sum;
-        }
-
-        private void AddToMatrix(List<MatrixCoordinate> sprialMatrix, string direction, int numberToAdd)
-        {
-            for (var i = 0; i < numberToAdd; i++)
-            {
-                var next = sprialMatrix.Last().Next(direction);
-                next.SurroundingSum = GetSurroundingSumOfCoordinate(sprialMatrix, next);
-                sprialMatrix.Add(next);
-            }
+            return currentCoordinate.SurroundingSum;
         }
     }
 
@@ -122,30 +79,147 @@ namespace AdventOfCode
         public int X { get; set; }
         public int Y { get; set; }
         public int SurroundingSum { get; set; }
+        public int Value { get; set; }
 
-        public MatrixCoordinate Next(string direction)
+        public int GetStepsToMiddle()
         {
-            var next = new MatrixCoordinate
+            return Math.Abs(X) + Math.Abs(Y);
+        }
+    }
+
+    public class Matrix 
+    {
+        private Dictionary<Tuple<int,int>, MatrixCoordinate> _matrix { get; }
+        private int CurrentX { get; set; }
+        private int CurrentY { get; set; }
+        private int CurrentSize { get; set; }
+        private int CurrentValue { get; set; }
+        private string CurrentDirection { get; set; }
+        private int CurrentDirectionCount { get; set; }
+
+        public Matrix()
+        {
+            _matrix = new Dictionary<Tuple<int, int>, MatrixCoordinate>
             {
-                X = X,
-                Y = Y
+                {
+                    new Tuple<int, int>(0, 0), new MatrixCoordinate
+                    {
+                        X = 0,
+                        Y = 0,
+                        Value = 1,
+                        SurroundingSum = 1
+                    }
+                }
             };
-            switch (direction)
+            CurrentX = 0;
+            CurrentY = 0;
+            CurrentSize = 1;
+            CurrentValue = 1;
+            CurrentDirection = "right";
+            CurrentDirectionCount = 0;
+        }
+
+        public MatrixCoordinate AddNext()
+        {
+            if (CurrentDirectionCount >= CurrentSize)
+            {
+                TurnCornerCounterclockwise();
+            }
+
+            IncrementXAndYInProperDirection();
+            IncrementValue();
+
+            var coordinate = new MatrixCoordinate
+            {
+                X = CurrentX,
+                Y = CurrentY,
+                Value = CurrentValue,
+                SurroundingSum = CalculateSurroundingSumOfCurrentCoordinate()
+            };
+
+            _matrix.Add(new Tuple<int, int>(coordinate.X, coordinate.Y), coordinate);
+
+            IncrementDirectionCount();
+
+            return coordinate;
+        }
+
+        private void IncrementDirectionCount()
+        {
+            CurrentDirectionCount++;
+        }
+
+        private void IncrementValue()
+        {
+            CurrentValue++;
+        }
+
+        private int CalculateSurroundingSumOfCurrentCoordinate()
+        {
+            var sum = 0;
+
+            int GetSurroundingSum(int x, int y)
+            {
+                var key = new Tuple<int, int>(x, y);
+                return _matrix.ContainsKey(key) ? _matrix[key].SurroundingSum : 0;
+            }
+
+            sum += GetSurroundingSum(CurrentX,CurrentY + 1); //top
+            sum += GetSurroundingSum(CurrentX + 1,CurrentY + 1); //top right
+            sum += GetSurroundingSum(CurrentX + 1,CurrentY); //right
+            sum += GetSurroundingSum(CurrentX + 1,CurrentY - 1); //bottom right
+            sum += GetSurroundingSum(CurrentX,CurrentY - 1); //bottom
+            sum += GetSurroundingSum(CurrentX - 1,CurrentY - 1); //bottom left
+            sum += GetSurroundingSum(CurrentX - 1,CurrentY); //left
+            sum += GetSurroundingSum(CurrentX - 1,CurrentY + 1); //top left
+
+            return sum;
+        }
+
+        private void IncrementXAndYInProperDirection()
+        {
+            switch (CurrentDirection)
             {
                 case "right":
-                    next.X++;
+                    CurrentX++;
                     break;
                 case "up":
-                    next.Y++;
+                    CurrentY++;
                     break;
                 case "left":
-                    next.X--;
+                    CurrentX--;
                     break;
                 case "down":
-                    next.Y--;
+                    CurrentY--;
                     break;
+                default:
+                    throw new Exception("Bad direction");
             }
-            return next;
+        }
+
+        private void TurnCornerCounterclockwise()
+        {
+            switch (CurrentDirection)
+            {
+                case "right":
+                    CurrentDirection = "up";
+                    break;
+                case "up":
+                    CurrentDirection = "left";
+                    CurrentSize++;
+                    break;
+                case "left":
+                    CurrentDirection = "down";
+                    break;
+                case "down":
+                    CurrentDirection = "right";
+                    CurrentSize++;
+                    break;
+                default:
+                    throw new Exception("Bad direction");
+            }
+
+            CurrentDirectionCount = 0;
         }
     }
 }
