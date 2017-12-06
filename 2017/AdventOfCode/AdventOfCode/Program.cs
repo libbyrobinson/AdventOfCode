@@ -31,6 +31,11 @@ namespace AdventOfCode
             var day5Part2Result = day5.CountStepsToExit_Part2();
             Console.WriteLine($"Day 5. Part 1: {day5Part1Result}. Part 2: {day5Part2Result}.");
 
+            var day6 = new Day6_MemoryReallocation();
+            var day6Part1Result = day6.CountRedistributionCycles_Part1();
+            var day6Part2Result = day6.CountRedistributionCycles_Part2();
+            Console.WriteLine($"Day 6. Part 1: {day6Part1Result}. Part 2: {day6Part2Result}.");
+
             Console.ReadKey();
         }
     }

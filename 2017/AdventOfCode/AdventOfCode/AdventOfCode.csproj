@@ -47,6 +47,7 @@
     <Compile Include="Day3_SpiralMemory.cs" />
     <Compile Include="Day4_HighEntropyPassphrases.cs" />
     <Compile Include="Day5_TwistyTrampolines.cs" />
+    <Compile Include="Day6_MemoryReallocation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
