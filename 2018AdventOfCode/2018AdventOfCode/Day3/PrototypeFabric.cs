@@ -6,22 +6,19 @@ namespace _2018AdventOfCode.Day3
 {
     public class PrototypeFabric
     {
-        private readonly int _fabricSize;
         private readonly string[,] _fabric; // [row,column]
         private readonly List<Plan> _plans;
         private int _overlapCount;
 
         public PrototypeFabric(int fabricSize, IEnumerable<string> rawPlans)
         {
-            _fabricSize = fabricSize;
             _overlapCount = 0;
-            _fabric = new string[_fabricSize, _fabricSize];
+            _fabric = new string[fabricSize, fabricSize];
             _plans = new List<Plan>();
             foreach (var rawPlan in rawPlans)
             {
                 var plan = new Plan(rawPlan);
                 AddPlanToFabric(plan);
-                _plans.Add(plan);
             }
         }
 
@@ -49,6 +46,7 @@ namespace _2018AdventOfCode.Day3
                     }
                 }
             }
+            _plans.Add(plan);
         }
 
         public int CountAreaOfOverlaps()
