@@ -33,5 +33,16 @@ namespace _2018AdventOfCode
                 .Split(new[] {"\r\n"}, StringSplitOptions.None)
                 .ToList();
         }
+
+        public static string ParseString(string fileName)
+        {
+            string fileText;
+            using (var streamReader = new StreamReader(fileName))
+            {
+                fileText = streamReader.ReadToEnd();
+            }
+
+            return fileText;
+        }
     }
 }
