@@ -1,20 +1,10 @@
-﻿using System;
-using System.Diagnostics;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace _2018AdventOfCode.Day9
 {
     public class MarbleGameTests
     {
-        private readonly ITestOutputHelper _output;
-
-        public MarbleGameTests(ITestOutputHelper output)
-        {
-            _output = output;
-        }
-
         [Theory]
         [InlineData(9, 32, 32)]
         [InlineData(10, 1618, 8317)]
