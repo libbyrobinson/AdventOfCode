@@ -65,7 +65,7 @@ namespace _2018AdventOfCode.Day10
 
         public void Print()
         {
-            var grid = new char?[Math.Abs(Highest - Lowest) + 1, Math.Abs(Rightest-Leftest) + 1]; 
+            var grid = new char?[Math.Abs(Highest - Lowest) + 1, Math.Abs(Rightest-Leftest) + 1]; //[Y,X]
 
             //make everything positive
             var xOffset = Leftest * -1;
@@ -78,10 +78,10 @@ namespace _2018AdventOfCode.Day10
 
             using (var streamWriter = new StreamWriter("Day10/Output.txt"))
             {
-                for (int y = 0; y < grid.GetLength(0); y++)
+                for (var y = 0; y < grid.GetLength(0); y++)
                 {
                     var line = "";
-                    for (int x = 0; x < grid.GetLength(1); x++)
+                    for (var x = 0; x < grid.GetLength(1); x++)
                     {
                         if (grid[y, x].HasValue)
                             line += grid[y, x];
