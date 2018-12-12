@@ -48,6 +48,8 @@ namespace _2018AdventOfCode.Day10
             var sut = new Sky(points);
             sut.MoveTimeUntilStarsSpellMessage();
             sut.Print();
+
+            PuzzleInputParser.ParseString("Day10/Output.txt").Should().Be(PuzzleInputParser.ParseString("Day10/ExampleOutput.txt"));
             sut.Seconds.Should().Be(3);
         }
 
@@ -59,6 +61,8 @@ namespace _2018AdventOfCode.Day10
             var sut = new Sky(points);
             sut.MoveTimeUntilStarsSpellMessage();
             sut.Print();
+
+            PuzzleInputParser.ParseString("Day10/Output.txt").Should().Be(PuzzleInputParser.ParseString("Day10/BigOutput.txt"));
             sut.Seconds.Should().Be(10681);
         }
     }
