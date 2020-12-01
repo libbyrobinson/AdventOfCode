@@ -238,8 +238,8 @@ function Day1() {
     Object.keys(expenseMap).forEach((key: string) => {
       const number = Number(key);
       const remaining = desiredSum - number;
-      
-      const mapCopy = {...expenseMap};
+
+      const mapCopy = { ...expenseMap };
       delete mapCopy[number];
 
       const otherTwo = find2(mapCopy, remaining);
