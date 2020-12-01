@@ -1,4 +1,3 @@
-import { number } from "prop-types";
 import React from "react";
 
 function Day1() {
@@ -240,7 +239,7 @@ function Day1() {
       if(secondMatches.length === 2) {
         matches = [firstMatch, ...secondMatches];
       }
-      
+
       return matches;
     }, []);
   };
