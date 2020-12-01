@@ -1,3 +1,4 @@
+import { number } from "prop-types";
 import React from "react";
 
 function Day1() {
@@ -216,40 +217,32 @@ function Day1() {
     expenseMap: { [key: number]: number },
     desiredSum: number
   ): number[] => {
-    let match: number[] = [];
+    return Object.keys(expenseMap).reduce((matches: number[], key: string) => {
+      const firstMatch = Number(key);
+      const secondMatch = desiredSum - firstMatch;
 
-    Object.keys(expenseMap).forEach((key: string) => {
-      const number = Number(key);
-      const remaining = desiredSum - number;
-      if (expenseMap[remaining]) {
-        match = [number, remaining];
+      if(expenseMap[secondMatch]) {
+        matches = [firstMatch, secondMatch]
       }
-    });
 
-    return match;
+      return matches;
+    }, []);
   };
 
   const find3 = (
     expenseMap: { [key: number]: number },
     desiredSum: number
   ): number[] => {
-    let match: number[] = [];
+    return Object.keys(expenseMap).reduce((matches: number[], key: string) => {
+      const firstMatch = Number(key);      
+      const secondMatches = find2(expenseMap, desiredSum - firstMatch);
 
-    Object.keys(expenseMap).forEach((key: string) => {
-      const number = Number(key);
-      const remaining = desiredSum - number;
-
-      const mapCopy = { ...expenseMap };
-      delete mapCopy[number];
-
-      const otherTwo = find2(mapCopy, remaining);
-
-      if (otherTwo.length == 2) {
-        match = [...otherTwo, number];
+      if(secondMatches.length === 2) {
+        matches = [firstMatch, ...secondMatches];
       }
-    });
-
-    return match;
+      
+      return matches;
+    }, []);
   };
 
   const part1 = find2(expenseMap, 2020);

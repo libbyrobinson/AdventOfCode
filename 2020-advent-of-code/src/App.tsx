@@ -1,7 +1,6 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Day1 from './days/day1';
+import React from "react";
+import "./App.css";
+import Day1 from "./days/day1";
 
 function App() {
   return (
@@ -11,7 +10,7 @@ function App() {
       </header>
       <body>
         <div>
-          <Day1/>
+          <Day1 />
         </div>
       </body>
     </div>
