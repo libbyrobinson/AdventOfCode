@@ -343,20 +343,23 @@ function Day3() {
     return treesHit;
   };
 
-  const right1Down1 = countTreesHitWhenTraversing(1, 1);
-  const right3Down1 = countTreesHitWhenTraversing(3, 1);
-  const right5Down1 = countTreesHitWhenTraversing(5, 1);
-  const right7Down1 = countTreesHitWhenTraversing(7, 1);
-  const right1Down2 = countTreesHitWhenTraversing(1, 2);
+  const part1 = countTreesHitWhenTraversing(3, 1);
+  const part2 = [
+    countTreesHitWhenTraversing(1, 1),
+    countTreesHitWhenTraversing(3, 1),
+    countTreesHitWhenTraversing(5, 1),
+    countTreesHitWhenTraversing(7, 1),
+    countTreesHitWhenTraversing(1, 2)
+  ].reduce((product: number, treeHits: number) => {
+    product*=treeHits;
+    return product;
+  }, 1);
 
   return (
     <div>
       <h2>Day 3</h2>
-      <p>There are {right3Down1} trees hit in part 1 (right 3, down 1)</p>
-      <p>
-        The product of all tree hits for part 2 is{" "}
-        {right1Down1 * right3Down1 * right5Down1 * right7Down1 * right1Down2}
-      </p>
+      <p>There are {part1} trees hit in part 1 (right 3, down 1)</p>
+      <p>The product of all tree hits for part 2 is {part2}</p>
     </div>
   );
 }
