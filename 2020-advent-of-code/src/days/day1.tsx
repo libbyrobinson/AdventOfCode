@@ -250,13 +250,8 @@ function Day1() {
   return (
     <div>
       <h2>Day 1</h2>
-      <p>
-        Part 1: {part1[0]} * {part1[1]} = {part1[0] * part1[1]}
-      </p>
-      <p>
-        Part 2: {part2[0]} * {part2[1]} * {part2[2]} ={" "}
-        {part2[0] * part2[1] * part2[2]}
-      </p>
+      <p>The two expense entries that sum to 2020 are {part1[0]} and {part1[1]}. Their product is {part1[0] * part1[1]}</p>
+      <p>The three expense entries that sum to 2020 are {part2[0]}, {part2[1]} and {part2[2]}. Their product is {part2[0] * part2[1] * part2[2]}</p>
     </div>
   );
 }
