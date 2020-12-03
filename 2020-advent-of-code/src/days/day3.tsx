@@ -329,15 +329,18 @@ function Day3() {
 
   const countTreesHitWhenTraversing = (right: number, down: number): number => {
     var treesHit = 0;
-    var currentRow = down;
+    var currentRow = 0;
     var currentCol = 0;
 
     while (currentRow < hill.length) {
+      currentRow = currentRow + down;      
       currentCol = (currentCol + right) % hill[0].length;
+      
+      if(currentRow >= hill.length) continue;
+
       if (hill[currentRow][currentCol] === "#") {
         treesHit++;
-      }
-      currentRow = currentRow + down;
+      }      
     }
 
     return treesHit;

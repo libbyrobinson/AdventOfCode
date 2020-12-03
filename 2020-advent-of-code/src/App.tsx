@@ -10,13 +10,11 @@ function App() {
       <header>
         <h1>Advent of Code 2020</h1>
       </header>
-      <body>
         <div>
           <Day1 />
           <Day2 />
           <Day3 />
         </div>
-      </body>
     </div>
   );
 }
