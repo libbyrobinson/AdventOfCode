@@ -3,6 +3,7 @@ import "./App.css";
 import Day1 from "./days/day1";
 import Day2 from "./days/day2";
 import Day3 from "./days/day3";
+import Day4 from "./days/day4";
 
 function App() {
   return (
@@ -10,11 +11,12 @@ function App() {
       <header>
         <h1>Advent of Code 2020</h1>
       </header>
-        <div>
-          <Day1 />
-          <Day2 />
-          <Day3 />
-        </div>
+      <div>
+        <Day1 />
+        <Day2 />
+        <Day3 />
+        <Day4 />
+      </div>
     </div>
   );
 }
