@@ -1,5 +1,3 @@
-import React from "react";
-
 function Day1() {
   const input: number[] = [
     1977,
@@ -220,8 +218,8 @@ function Day1() {
       const firstMatch = Number(key);
       const secondMatch = desiredSum - firstMatch;
 
-      if(expenseMap[secondMatch]) {
-        matches = [firstMatch, secondMatch]
+      if (expenseMap[secondMatch]) {
+        matches = [firstMatch, secondMatch];
       }
 
       return matches;
@@ -233,10 +231,10 @@ function Day1() {
     desiredSum: number
   ): number[] => {
     return Object.keys(expenseMap).reduce((matches: number[], key: string) => {
-      const firstMatch = Number(key);      
+      const firstMatch = Number(key);
       const secondMatches = find2(expenseMap, desiredSum - firstMatch);
 
-      if(secondMatches.length === 2) {
+      if (secondMatches.length === 2) {
         matches = [firstMatch, ...secondMatches];
       }
 
@@ -250,8 +248,14 @@ function Day1() {
   return (
     <div>
       <h2>Day 1</h2>
-      <p>The two expense entries that sum to 2020 are {part1[0]} and {part1[1]}. Their product is {part1[0] * part1[1]}</p>
-      <p>The three expense entries that sum to 2020 are {part2[0]}, {part2[1]} and {part2[2]}. Their product is {part2[0] * part2[1] * part2[2]}</p>
+      <p>
+        The two expense entries that sum to 2020 are {part1[0]} and {part1[1]}.
+        Their product is {part1[0] * part1[1]}
+      </p>
+      <p>
+        The three expense entries that sum to 2020 are {part2[0]}, {part2[1]}{" "}
+        and {part2[2]}. Their product is {part2[0] * part2[1] * part2[2]}
+      </p>
     </div>
   );
 }

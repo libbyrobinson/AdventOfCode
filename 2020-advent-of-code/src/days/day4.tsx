@@ -1,5 +1,3 @@
-import React from "react";
-
 enum PassportField {
   byr = "byr",
   iyr = "iyr",

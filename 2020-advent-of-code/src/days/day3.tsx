@@ -1,5 +1,3 @@
-import React from "react";
-
 function Day3() {
   const hill: string[] = [
     ".........#....#.###.........##.",
@@ -333,14 +331,14 @@ function Day3() {
     var currentCol = 0;
 
     while (currentRow < hill.length) {
-      currentRow = currentRow + down;      
+      currentRow = currentRow + down;
       currentCol = (currentCol + right) % hill[0].length;
-      
-      if(currentRow >= hill.length) continue;
+
+      if (currentRow >= hill.length) continue;
 
       if (hill[currentRow][currentCol] === "#") {
         treesHit++;
-      }      
+      }
     }
 
     return treesHit;
@@ -352,9 +350,9 @@ function Day3() {
     countTreesHitWhenTraversing(3, 1),
     countTreesHitWhenTraversing(5, 1),
     countTreesHitWhenTraversing(7, 1),
-    countTreesHitWhenTraversing(1, 2)
+    countTreesHitWhenTraversing(1, 2),
   ].reduce((product: number, treeHits: number) => {
-    product*=treeHits;
+    product *= treeHits;
     return product;
   }, 1);
 

@@ -1,5 +1,3 @@
-import React from "react";
-
 type PasswordData = {
   left: number;
   right: number;
