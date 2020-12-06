@@ -2066,7 +2066,6 @@ function Day6() {
   let peopleInGroup = 0;
   input.forEach((line: string) => {
     if (line) {
-      peopleInGroup++;
       for (var i = 0; i < line.length; i++) {
         yesCountsInGroup.set(
           line[i],
@@ -2075,11 +2074,14 @@ function Day6() {
             : 1
         );
       }
+      peopleInGroup++;
     } else {
       totalYesCountPart1 += yesCountsInGroup.size;
-      yesCountsInGroup.forEach((yesCount: number) => {
-        totalYesCountPart2 += yesCount === peopleInGroup ? 1 : 0;
-      });
+      totalYesCountPart2 += Array.from(yesCountsInGroup.values()).reduce(
+        (everyoneSaysYes: number, yesCount) =>
+          everyoneSaysYes + (yesCount === peopleInGroup ? 1 : 0),
+        0
+      );
       peopleInGroup = 0;
       yesCountsInGroup.clear();
     }
