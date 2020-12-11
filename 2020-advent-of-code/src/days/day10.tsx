@@ -123,10 +123,8 @@ function Day10() {
 
   const joltageDifferences = sorted.reduce(
     (differences: number[], adapter: number, index: number) => {
-      if (index > 0) {
-        const previousJoltage = sorted[index - 1];
-        differences.push(adapter - previousJoltage);
-      }
+      const previousJoltage = index > 0 ? sorted[index - 1] : 0;
+      differences.push(adapter - previousJoltage);
 
       return differences;
     },

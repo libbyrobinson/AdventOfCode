@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import Day1 from "./days/day1";
 import Day10 from "./days/day10";
+import Day11 from "./days/day11";
 import Day2 from "./days/day2";
 import Day3 from "./days/day3";
 import Day4 from "./days/day4";
@@ -28,6 +29,7 @@ function App() {
         <Day8 />
         <Day9 />
         <Day10 />
+        <Day11 />
       </div>
     </div>
   );
