@@ -1,12 +1,15 @@
 import React from "react";
 import "./App.css";
 import Day1 from "./days/day1";
+import Day10 from "./days/day10";
 import Day2 from "./days/day2";
 import Day3 from "./days/day3";
 import Day4 from "./days/day4";
 import Day5 from "./days/day5";
 import Day6 from "./days/day6";
 import Day7 from "./days/day7";
+import Day8 from "./days/day8";
+import Day9 from "./days/day9";
 
 function App() {
   return (
@@ -22,6 +25,9 @@ function App() {
         <Day5 />
         <Day6 />
         <Day7 />
+        <Day8 />
+        <Day9 />
+        <Day10 />
       </div>
     </div>
   );

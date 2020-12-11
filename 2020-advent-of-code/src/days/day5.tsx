@@ -885,17 +885,18 @@ const input = [
 function Day5() {
   const getSeat = (binaryPartition: string): Seat => {
     var possibleRows = 128;
-    var row = 0;
-    for (var i = 0; i < 7; i++) {
-      possibleRows /= 2;
-      row += binaryPartition[i] === "B" ? possibleRows : 0;
-    }
-
     var possibleCols = 8;
+    var row = 0;
     var column = 0;
-    for (var i = 0; i < 3; i++) {
-      possibleCols /= 2;
-      column += binaryPartition[7 + i] === "R" ? possibleCols : 0;
+
+    for (var i = 0; i < binaryPartition.length; i++) {
+      if (i < 7) {
+        possibleRows /= 2;
+        row += binaryPartition[i] === "B" ? possibleRows : 0;
+      } else {
+        possibleCols /= 2;
+        column += binaryPartition[i] === "R" ? possibleCols : 0;
+      }
     }
 
     return {

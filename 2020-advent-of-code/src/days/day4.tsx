@@ -1059,7 +1059,7 @@ function Day4() {
     return value !== undefined && regex.test(value);
   };
   const validEyeColour = (value?: string): boolean => {
-    return value != undefined && value in EyeColours;
+    return value !== undefined && value in EyeColours;
   };
   const validNumber = (expectedDigits: number, value?: string): boolean => {
     return value?.length === expectedDigits && !isNaN(Number(value));
