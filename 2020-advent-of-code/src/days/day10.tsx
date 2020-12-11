@@ -133,10 +133,9 @@ function Day10() {
     []
   );
 
-  const oneJoltDiffs = joltageDifferences.filter((d) => d === 1).length;
-  const threeJoltDiffs = joltageDifferences.filter((d) => d === 3).length;
-
-  const part1 = oneJoltDiffs * threeJoltDiffs;
+  const part1 =
+    joltageDifferences.filter((d) => d === 1).length *
+    joltageDifferences.filter((d) => d === 3).length;
 
   const waysToReachAdapter = sorted.reduce(
     (waysToReachAdapter: { [key: number]: number }, adapter: number) => {
