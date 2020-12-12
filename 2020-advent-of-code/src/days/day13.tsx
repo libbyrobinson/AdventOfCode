@@ -1,12 +1,12 @@
 const input = [""];
 
-function Day_() {
+function Day13() {
   return (
     <div>
-      <h2>Day _</h2>
+      <h2>Day 13</h2>
       <p></p>
     </div>
   );
 }
 
-export default Day_;
+export default Day13;
