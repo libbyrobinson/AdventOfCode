@@ -423,9 +423,9 @@ function Day18() {
     expression: string,
     additionFirst: boolean = false
   ): number => {
-    if (expression.indexOf("(") !== -1 || expression.indexOf(")") !== -1) {
+    if (expression.indexOf("(") !== -1 || expression.indexOf("(") !== -1) {
       let insideBrackets = "";
-      for (let i = 0; i < expression.length; i++) {
+      for (let i = expression.indexOf("("); i < expression.length; i++) {
         if (expression[i] === "(") {
           insideBrackets = "";
         } else if (expression[i] === ")") {
