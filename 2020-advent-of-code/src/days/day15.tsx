@@ -48,18 +48,15 @@ function Day15() {
   assert(findNthNumberSpoken([3, 2, 1], 2020), 438);
   assert(findNthNumberSpoken([3, 1, 2], 2020), 1836);
 
-  const part1 = findNthNumberSpoken([5, 2, 8, 16, 18, 0, 1], 2020);
-  // const part2 = findNthNumberSpoken([5,2,8,16,18,0,1], 30000000);
-
   return (
     <div>
       <h2>Day 15</h2>
-      <p>The 2020th number spoken in part 1 is {part1}</p>
-      {/* <p>The 30000000th number spoken in part 2 is {part2}</p> */}
       <p>
-        The 30000000th number spoken in part 2 is commented out because it's
-        slow :)
+        The 2020th number spoken in part 1 is{" "}
+        {findNthNumberSpoken([5, 2, 8, 16, 18, 0, 1], 2020)}
       </p>
+      {/* <p>The 30000000th number spoken in part 2 is {findNthNumberSpoken([5,2,8,16,18,0,1], 30000000)}</p> */}
+      <p>The 30000000th number spoken in part 2 is (commented out)</p>
     </div>
   );
 }

@@ -128,14 +128,15 @@ function Day17() {
     );
   };
 
-  const part1 = countActiveCubes(input, 3, 6);
-  const part2 = countActiveCubes(input, 4, 6);
-
   return (
     <div>
       <h2>Day 17</h2>
-      <p>After 6 cycles, there are {part1} active cubes in part 1</p>
-      <p>After 6 cycles, there are {part2} active cubes in part 2</p>
+      <p>
+        After 6 cycles, there are {countActiveCubes(input, 3, 6)} active cubes
+        in part 1
+      </p>
+      {/* <p>After 6 cycles, there are {countActiveCubes(input, 4, 6)} active cubes in part 2</p> */}
+      <p>After 6 cycles, there are (commented out) active cubes in part 2</p>
     </div>
   );
 }

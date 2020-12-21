@@ -386,37 +386,23 @@ function Day18() {
       .split(" ")
       .filter((value) => value !== "");
 
-    while (additionFirst && operationOrNumber.indexOf("+") !== -1) {
-      const additionIndex = operationOrNumber.indexOf("+");
-      operationOrNumber[additionIndex - 1] = (
-        parseInt(operationOrNumber[additionIndex - 1]) +
-        parseInt(operationOrNumber[additionIndex + 1])
-      ).toString();
-      operationOrNumber.splice(additionIndex, 1);
-      operationOrNumber.splice(additionIndex, 1);
+    while (operationOrNumber.length !== 1) {
+      const operatorIndex =
+        additionFirst && operationOrNumber.indexOf("+") !== -1
+          ? operationOrNumber.indexOf("+")
+          : 1;
+      const left = Number(operationOrNumber[operatorIndex - 1]);
+      const right = Number(operationOrNumber[operatorIndex + 1]);
+
+      const result =
+        operationOrNumber[operatorIndex] === "+" ? left + right : left * right;
+
+      operationOrNumber[operatorIndex - 1] = result.toString();
+      operationOrNumber.splice(operatorIndex, 1);
+      operationOrNumber.splice(operatorIndex, 1);
     }
 
-    let result = parseInt(operationOrNumber[0]);
-    let operation = "";
-
-    for (let i = 1; i < operationOrNumber.length; i++) {
-      if (i % 2 === 1) {
-        operation = operationOrNumber[i];
-      } else {
-        switch (operation) {
-          case "+":
-            result += parseInt(operationOrNumber[i]);
-            break;
-          case "*":
-            result *= parseInt(operationOrNumber[i]);
-            break;
-          default:
-            break;
-        }
-      }
-    }
-
-    return result;
+    return Number(operationOrNumber[0]);
   };
 
   const evaluateWithBrackets = (
@@ -425,10 +411,12 @@ function Day18() {
   ): number => {
     if (expression.indexOf("(") !== -1 || expression.indexOf("(") !== -1) {
       let insideBrackets = "";
-      for (let i = expression.indexOf("("); i < expression.length; i++) {
-        if (expression[i] === "(") {
-          insideBrackets = "";
-        } else if (expression[i] === ")") {
+      for (
+        let i = expression.lastIndexOf("(") + 1;
+        i < expression.length;
+        i++
+      ) {
+        if (expression[i] === ")") {
           const result = evaluateWithoutBrackets(insideBrackets, additionFirst);
           return evaluateWithBrackets(
             expression.replace(`(${insideBrackets})`, result.toString()),
